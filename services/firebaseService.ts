@@ -2,19 +2,21 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getDatabase, ref, get, child, set, remove } from 'firebase/database';
 import { ScoreRecord } from '../types';
 
-// --- CONFIG 1: King of Sifir (Untuk Simpan Markah) ---
+// --- CONFIG 1: Main App (Untuk Simpan Markah & Ranking) ---
+// Menggunakan configuration baru yang diminta
 const scoreConfig = {
-  apiKey: "AIzaSyDem01lvBz6pnQO2v97WhXe6mjQML4JQ3Q",
-  authDomain: "king-of-sifir.firebaseapp.com",
-  databaseURL: "https://king-of-sifir-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "king-of-sifir",
-  storageBucket: "king-of-sifir.firebasestorage.app",
-  messagingSenderId: "1062770360330",
-  appId: "1:1062770360330:web:d0004ce218effbf5da1ff3",
-  measurementId: "G-0FVQ446Z7H"
+  apiKey: "AIzaSyAn-FAtu6O2e3iaBBPBVeKFhq81D3OT3fU",
+  authDomain: "superb-app-480510-f9.firebaseapp.com",
+  databaseURL: "https://superb-app-480510-f9-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "superb-app-480510-f9",
+  storageBucket: "superb-app-480510-f9.firebasestorage.app",
+  messagingSenderId: "999358020770",
+  appId: "1:999358020770:web:7d4fa4b1e6d154e9aa6bfb",
+  measurementId: "G-P7WCX2SCT0"
 };
 
 // --- CONFIG 2: Kehadiran Murid (Untuk Senarai Nama/Kelas) ---
+// Kekalkan config ini untuk mengambil senarai nama murid sedia ada
 const classDataConfig = {
   apiKey: "AIzaSyDbCgDz2vK2BZUpwM3iDWJcPQSptVcNkv4",
   authDomain: "kehadiran-murid-6ece0.firebaseapp.com",
@@ -68,7 +70,7 @@ export const fetchClassData = async (): Promise<ClassData | null> => {
   }
 };
 
-// Save score MENGGUNAKAN dbScores (King of Sifir)
+// Save score MENGGUNAKAN dbScores (Main App)
 export const saveScoreToFirebase = async (name: string, className: string, score: number): Promise<void> => {
     // Sanitize keys
     const safeName = name.replace(/[.#$[\]]/g, "_");
@@ -106,7 +108,7 @@ export const saveScoreToFirebase = async (name: string, className: string, score
     }
 };
 
-// Get scores MENGGUNAKAN dbScores (King of Sifir)
+// Get scores MENGGUNAKAN dbScores (Main App)
 export const getScoresFromFirebase = async (): Promise<ScoreRecord[]> => {
     try {
         const dbRef = ref(dbScores, 'scores');
@@ -122,7 +124,7 @@ export const getScoresFromFirebase = async (): Promise<ScoreRecord[]> => {
     }
 }
 
-// Clear scores MENGGUNAKAN dbScores (King of Sifir)
+// Clear scores MENGGUNAKAN dbScores (Main App)
 export const clearAllScoresFirebase = async (): Promise<void> => {
     try {
         const dbRef = ref(dbScores, 'scores');
