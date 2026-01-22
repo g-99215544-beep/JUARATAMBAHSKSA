@@ -71,13 +71,15 @@ export const fetchClassData = async (): Promise<ClassData | null> => {
 };
 
 // Save score MENGGUNAKAN dbScores (Main App)
+// DATA DISIMPAN DALAM FOLDER 'tambah/scores'
 export const saveScoreToFirebase = async (name: string, className: string, score: number): Promise<void> => {
     // Sanitize keys
     const safeName = name.replace(/[.#$[\]]/g, "_");
     const safeClass = className.replace(/[.#$[\]]/g, "_");
     const recordKey = `${safeClass}_${safeName}`;
     
-    const dbRef = ref(dbScores, `scores/${recordKey}`);
+    // Path dikemaskini ke 'tambah/scores'
+    const dbRef = ref(dbScores, `tambah/scores/${recordKey}`);
     
     try {
         const snapshot = await get(dbRef);
@@ -109,9 +111,11 @@ export const saveScoreToFirebase = async (name: string, className: string, score
 };
 
 // Get scores MENGGUNAKAN dbScores (Main App)
+// DATA DIAMBIL DARI FOLDER 'tambah/scores'
 export const getScoresFromFirebase = async (): Promise<ScoreRecord[]> => {
     try {
-        const dbRef = ref(dbScores, 'scores');
+        // Path dikemaskini ke 'tambah/scores'
+        const dbRef = ref(dbScores, 'tambah/scores');
         const snapshot = await get(dbRef);
         if (snapshot.exists()) {
             const data = snapshot.val();
@@ -125,9 +129,11 @@ export const getScoresFromFirebase = async (): Promise<ScoreRecord[]> => {
 }
 
 // Clear scores MENGGUNAKAN dbScores (Main App)
+// DATA DIPADAM DARI FOLDER 'tambah/scores'
 export const clearAllScoresFirebase = async (): Promise<void> => {
     try {
-        const dbRef = ref(dbScores, 'scores');
+        // Path dikemaskini ke 'tambah/scores'
+        const dbRef = ref(dbScores, 'tambah/scores');
         await remove(dbRef);
     } catch (e) {
         console.error("Error clearing scores in Firebase", e);
